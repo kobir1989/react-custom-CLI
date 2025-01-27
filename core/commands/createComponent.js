@@ -12,13 +12,18 @@ export const createComponent = (name, componentPath, fileType, styleType, featur
   if (styleType === 'Styled Components') {
     imports += `import styled from 'styled-components';\n`;
   } else if (styleType === 'CSS') {
-    imports += `import './${name}.css';\n`;
+    imports += `import styles from './${name}.css';\n`;
   } else if (styleType === 'SCSS') {
-    imports += `import './${name}.scss';\n`;
+    imports += `import styles from './${name}.scss';\n`;
   }
 
   // Generate component content
   let componentContent = imports + '\n';
+
+  // Add styled components if selected
+  if (styleType === 'Styled Components') {
+    componentContent += `const StyledWrapper = styled.div\`\n  // Add your styles here\n\`;\n\n`;
+  }
 
   // Add Props interface for TypeScript
   if (fileType === 'tsx') {
@@ -32,7 +37,13 @@ export const createComponent = (name, componentPath, fileType, styleType, featur
       : `const ${name} = () => {`;
 
   componentContent += componentDeclaration + '\n';
-  componentContent += `  return (\n    <div className="${name}">\n      ${name} Component\n    </div>\n  );\n};\n\n`;
+
+  const wrapperElement =
+    styleType === 'Styled Components' ? 'StyledWrapper' : `div className="${name}"`;
+  componentContent += `  return (\n    <${wrapperElement}>\n      ${name} Component\n    </${
+    wrapperElement.split(' ')[0]
+  }>\n  );\n};\n\n`;
+
   componentContent += `export default ${name};\n`;
 
   // Write component file

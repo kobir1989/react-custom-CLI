@@ -44,7 +44,6 @@ export const askComponentQuestions = async () => {
       choices: [
         { name: 'SCSS - Sass with more features', value: 'SCSS' },
         { name: 'CSS - Standard styling', value: 'CSS' },
-        { name: 'Styled Components - CSS-in-JS', value: 'Styled Components' },
         { name: 'None - No styling file', value: 'None' },
       ],
       default: 'SCSS',
