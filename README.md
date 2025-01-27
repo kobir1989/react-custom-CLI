@@ -38,9 +38,13 @@ my-cli
 
 2. **Generate Custom Hook**
 
-   - Create custom hooks with built-in React hooks
-   - Automatic TypeScript types
-   - Optional dependency tracking
+   - Create custom React hooks with built-in hook integration (useState, useEffect, useCallback,
+     useMemo)
+   - Enforces proper hook naming convention (must start with 'use' followed by PascalCase name)
+   - Supports both JavaScript (.js) and TypeScript (.ts) files
+   - Flexible directory structure:
+     - Default: `src/hooks/useHookName.js`
+     - Custom: `src/features/auth/hooks/useAuthState.ts`
 
 3. **Create Context**
 

@@ -1,13 +1,18 @@
 import { ensureDirectoryExists, writeFile, joinPaths, getProjectRoot } from '../utils/fileUtils.js';
 
-export const createHook = ({ hookName, features }) => {
-  const hooksDir = joinPaths(getProjectRoot(), 'src', 'hooks');
+export const createHook = ({ hookName, features, path }) => {
+  // Process the path to ensure it ends with /hooks
+  const normalizedPath = path || 'src/hooks';
+  const hooksDir = normalizedPath.endsWith('hooks')
+    ? joinPaths(getProjectRoot(), normalizedPath)
+    : joinPaths(getProjectRoot(), normalizedPath, 'hooks');
+
   ensureDirectoryExists(hooksDir);
 
   let imports = `import { ${features.join(', ')} } from 'react';\n\n`;
 
   let hookContent = imports;
-  hookContent += `export const ${hookName} = () => {\n`;
+  hookContent += `export const ${hookName.name} = () => {\n`;
 
   // Add state if useState is selected
   if (features.includes('useState')) {
@@ -31,13 +36,13 @@ export const createHook = ({ hookName, features }) => {
 
   hookContent += `  return {\n    // Return values here\n  };\n};\n`;
 
-  // Check if hookName includes an extension
-  const extension = hookName.includes('.') ? '' : '.ts';
-  const hookPath = joinPaths(hooksDir, `${hookName}${extension}`);
+  const fileName = `${hookName.name}.${hookName.extension}`;
+  const hookPath = joinPaths(hooksDir, fileName);
+
   writeFile(hookPath, hookContent);
 
   console.log('\n✅ Hook created successfully!');
   console.log('📂 Location:', hooksDir);
   console.log('📦 Generated files:');
-  console.log(`   • ${hookName}${extension}`);
+  console.log(`   • ${fileName}`);
 };
