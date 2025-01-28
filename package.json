@@ -1,6 +1,6 @@
 {
-  "name": "react-quickstart-cli",
-  "version": "1.0.0",
+  "name": "react-quickstart-cli-2",
+  "version": "1.0.1",
   "description": "A CLI tool for creating React templates",
   "main": "dist/cli.js",
   "scripts": {

@@ -63,7 +63,7 @@ automating component creation and project structure setup.
 ## 📦 Installation
 
 ```bash
-npm install -g react-quickstart-cli
+npm install -g react-quickstart-cli-2
 ```
 
 ## 🛠️ Usage
@@ -75,7 +75,7 @@ npm install -g react-quickstart-cli
 react-quickstart-cli
 
 # Or use the shorthand
-rtc
+rqc
 ```
 
 ### Component Generation
