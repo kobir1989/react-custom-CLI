@@ -1,6 +1,6 @@
 {
-  "name": "react-custom-cli",
-  "version": "1.0.0",
+  "name": "react-custom-cli-new",
+  "version": "1.0.1",
   "description": "A CLI tool for creating React templates",
   "main": "dist/cli.js",
   "scripts": {
