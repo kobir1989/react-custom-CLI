@@ -1,9 +1,24 @@
 import { ensureDirectoryExists, writeFile, joinPaths, getProjectRoot } from '../utils/fileUtils.js';
 import path from 'path';
+import fs from 'fs';
 
 export const createTestSuite = async ({ componentPath, testTypes, includeMocks }) => {
   const fullPath = joinPaths(getProjectRoot(), 'src', componentPath);
-  const componentName = path.basename(componentPath);
+
+  // Get the file extension from the component
+  const fileExtension = path.extname(fullPath);
+
+  // Validate file extension
+  const validExtensions = ['.js', '.jsx', '.ts', '.tsx'];
+  if (!validExtensions.includes(fileExtension)) {
+    throw new Error(`Invalid file extension. Must be one of: ${validExtensions.join(', ')}`);
+  }
+
+  if (!fs.existsSync(fullPath)) {
+    throw new Error(`Component file not found at path: ${fullPath}`);
+  }
+
+  const componentName = path.basename(componentPath, fileExtension); // Remove extension from component name
   const testDir = path.dirname(fullPath);
 
   let testContent = `import React from 'react';\n`;
@@ -33,13 +48,14 @@ export const createTestSuite = async ({ componentPath, testTypes, includeMocks }
 
   testContent += `});\n`;
 
-  const testPath = joinPaths(testDir, `${componentName}.test.tsx`);
+  // Use the same extension for the test file, but add .test before the extension
+  const testPath = joinPaths(testDir, `${componentName}.test${fileExtension}`);
   writeFile(testPath, testContent);
 
   console.log('\n✅ Test suite created successfully!');
   console.log('📂 Location:', testDir);
   console.log('📦 Generated files:');
-  console.log(`   • ${componentName}.test.tsx`);
+  console.log(`   • ${componentName}.test${fileExtension}`);
 };
 
 const generateUnitTests = (componentName, includeMocks) => `

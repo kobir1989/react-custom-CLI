@@ -11,7 +11,19 @@ export const askTestQuestions = async () => {
       validate: (input) => {
         if (!input) return 'Path is required';
         const fullPath = joinPaths(getProjectRoot(), 'src', input);
-        if (!fileExists(fullPath)) return '❌ Component does not exist';
+
+        // Check for valid component file extensions
+        const validExtensions = ['.js', '.jsx', '.ts', '.tsx'];
+        const hasValidExtension = validExtensions.some((ext) => fullPath.endsWith(ext));
+
+        if (!hasValidExtension) {
+          return '❌ Component file must have a valid extension (.js, .jsx, .ts, .tsx)';
+        }
+
+        if (!fileExists(fullPath)) {
+          return '❌ Component file does not exist';
+        }
+
         return true;
       },
     },
