@@ -72,10 +72,10 @@ npm install -g react-quickstart-cli
 
 ```bash
 # Start the CLI
-react-template-cli
+react-quickstart-cli
 
 # Or use the shorthand
-rcc
+rtc
 ```
 
 ### Component Generation
