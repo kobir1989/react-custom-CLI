@@ -1,20 +1,34 @@
 import { ensureDirectoryExists, writeFile, joinPaths, getProjectRoot } from '../utils/fileUtils.js';
 
-export const createApiService = ({ serviceName, httpClient, baseURL }) => {
-  const serviceDir = joinPaths(getProjectRoot(), 'src', 'services');
+export const createApiService = (params) => {
+  const serviceName = params['🌐 serviceName'];
+  const serviceDir = joinPaths(getProjectRoot(), 'src', params.path);
   ensureDirectoryExists(serviceDir);
 
-  // Extract file extension if provided after space, default to .ts
-  const [baseName, fileExt = 'ts'] = serviceName.split(' ');
-  const fileName = `${baseName}.${fileExt || 'ts'}`;
+  // Extract file extension if provided after space, default to provided fileType
+  const [baseName, fileExt] = serviceName.split(' ');
+  const fileName = `${baseName}.${params.fileType}`;
 
   let serviceContent = '';
 
-  if (httpClient === 'axios') {
-    serviceContent = `import axios from 'axios';\n\n`;
+  if (params.httpClient === 'axios') {
+    // Add imports based on file type
+    serviceContent =
+      params.fileType === 'ts'
+        ? `import axios, { AxiosResponse } from 'axios';\n\n`
+        : `import axios from 'axios';\n\n`;
+
+    // Add TypeScript interface only for .ts files
+    if (params.fileType === 'ts') {
+      serviceContent += `interface ${baseName} {\n`;
+      serviceContent += `  id: number;\n`;
+      serviceContent += `  // Add other properties here\n`;
+      serviceContent += `}\n\n`;
+    }
+
     serviceContent += `// Create axios instance\n`;
     serviceContent += `const api = axios.create({\n`;
-    serviceContent += `  baseURL: ${baseURL},\n`;
+    serviceContent += `  baseURL: ${params.baseURL},\n`;
     serviceContent += `  headers: {\n`;
     serviceContent += `    'Content-Type': 'application/json',\n`;
     serviceContent += `  },\n`;
@@ -32,7 +46,7 @@ export const createApiService = ({ serviceName, httpClient, baseURL }) => {
     serviceContent += `  (error) => Promise.reject(error)\n`;
     serviceContent += `);\n\n`;
   } else {
-    serviceContent = `const BASE_URL = ${baseURL};\n\n`;
+    serviceContent = `const BASE_URL = ${params.baseURL};\n\n`;
     serviceContent += `const getHeaders = () => {\n`;
     serviceContent += `  const headers = {\n`;
     serviceContent += `    'Content-Type': 'application/json',\n`;
@@ -48,8 +62,11 @@ export const createApiService = ({ serviceName, httpClient, baseURL }) => {
   // Add API methods
   serviceContent += `export const ${baseName}Service = {\n`;
 
-  if (httpClient === 'axios') {
-    serviceContent += generateAxiosMethods(baseName);
+  if (params.httpClient === 'axios') {
+    serviceContent +=
+      params.fileType === 'ts'
+        ? generateAxiosMethodsWithTypes(baseName)
+        : generateAxiosMethods(baseName);
   } else {
     serviceContent += generateFetchMethods(baseName);
   }
@@ -91,6 +108,32 @@ const generateAxiosMethods = (serviceName) => `
     return response.data;
   },`;
 
+const generateAxiosMethodsWithTypes = (serviceName) => `
+  getAll: async () => {
+    const response = await api.get('/${serviceName.toLowerCase()}');
+    return response.data;
+  },
+
+  getById: async (id: number) => {
+    const response = await api.get(\`/${serviceName.toLowerCase()}/\${id}\`);
+    return response.data;
+  },
+
+  create: async (data: any) => {
+    const response = await api.post('/${serviceName.toLowerCase()}', data);
+    return response.data;
+  },
+
+  update: async (id: number, data: any) => {
+    const response = await api.put(\`/${serviceName.toLowerCase()}/\${id}\`, data);
+    return response.data;
+  },
+
+  delete: async (id: number) => {
+    const response = await api.delete(\`/${serviceName.toLowerCase()}/\${id}\`);
+    return response.data;
+  },`;
+
 const generateFetchMethods = (serviceName) => `
   getAll: async () => {
     const response = await fetch(\`\${BASE_URL}/${serviceName.toLowerCase()}\`, {
@@ -100,7 +143,7 @@ const generateFetchMethods = (serviceName) => `
     return response.json();
   },
 
-  getById: async (id) => {
+  getById: async (id: number) => {
     const response = await fetch(\`\${BASE_URL}/${serviceName.toLowerCase()}/\${id}\`, {
       headers: getHeaders(),
     });
@@ -108,7 +151,7 @@ const generateFetchMethods = (serviceName) => `
     return response.json();
   },
 
-  create: async (data) => {
+  create: async (data: any) => {
     const response = await fetch(\`\${BASE_URL}/${serviceName.toLowerCase()}\`, {
       method: 'POST',
       headers: getHeaders(),
@@ -118,7 +161,7 @@ const generateFetchMethods = (serviceName) => `
     return response.json();
   },
 
-  update: async (id, data) => {
+  update: async (id: number, data: any) => {
     const response = await fetch(\`\${BASE_URL}/${serviceName.toLowerCase()}/\${id}\`, {
       method: 'PUT',
       headers: getHeaders(),
@@ -128,7 +171,7 @@ const generateFetchMethods = (serviceName) => `
     return response.json();
   },
 
-  delete: async (id) => {
+  delete: async (id: number) => {
     const response = await fetch(\`\${BASE_URL}/${serviceName.toLowerCase()}/\${id}\`, {
       method: 'DELETE',
       headers: getHeaders(),

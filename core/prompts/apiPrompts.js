@@ -4,9 +4,32 @@ export const askApiServiceQuestions = async () => {
   return inquirer.prompt([
     {
       type: 'input',
-      name: 'serviceName',
-      message: 'Enter service name (e.g. authService ts/js):',
-      prefix: '🌐',
+      name: '🌐 serviceName',
+      message: 'Service name (without extension):',
+      prefix: '🌐 ',
+      validate: (input) => {
+        if (!input) return 'Service name is required';
+        if (input.includes('.')) return 'Please enter the name without file extension';
+        return true;
+      },
+    },
+    {
+      type: 'input',
+      name: 'path',
+      message: 'Service path (relative to src):',
+      prefix: '📁',
+      default: 'services',
+    },
+    {
+      type: 'list',
+      name: 'fileType',
+      message: 'File type:',
+      prefix: '📄',
+      choices: [
+        { name: 'TypeScript (ts)', value: 'ts' },
+        { name: 'JavaScript (js)', value: 'js' },
+      ],
+      default: 'ts',
     },
     {
       type: 'list',
