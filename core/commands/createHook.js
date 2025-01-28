@@ -1,6 +1,6 @@
 import { ensureDirectoryExists, writeFile, joinPaths, getProjectRoot } from '../utils/fileUtils.js';
 
-export const createHook = ({ hookName, features, path }) => {
+export const createHook = ({ hookName, features, path, fileType }) => {
   // Process the path to ensure it ends with /hooks
   const normalizedPath = path || 'src/hooks';
   const hooksDir = normalizedPath.endsWith('hooks')
@@ -9,10 +9,16 @@ export const createHook = ({ hookName, features, path }) => {
 
   ensureDirectoryExists(hooksDir);
 
-  let imports = `import { ${features.join(', ')} } from 'react';\n\n`;
+  // Filter out non-React hooks (like 'test') before creating imports
+  const reactHooks = features.filter((feature) =>
+    ['useState', 'useEffect', 'useCallback', 'useMemo'].includes(feature)
+  );
+
+  let imports =
+    reactHooks.length > 0 ? `import { ${reactHooks.join(', ')} } from 'react';\n\n` : '';
 
   let hookContent = imports;
-  hookContent += `export const ${hookName.name} = () => {\n`;
+  hookContent += `export const ${hookName} = () => {\n`;
 
   // Add state if useState is selected
   if (features.includes('useState')) {
@@ -36,7 +42,7 @@ export const createHook = ({ hookName, features, path }) => {
 
   hookContent += `  return {\n    // Return values here\n  };\n};\n`;
 
-  const fileName = `${hookName.name}.${hookName.extension}`;
+  const fileName = `${hookName}.${fileType}`;
   const hookPath = joinPaths(hooksDir, fileName);
 
   writeFile(hookPath, hookContent);
