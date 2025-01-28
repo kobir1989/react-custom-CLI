@@ -5,7 +5,7 @@ export const askApiServiceQuestions = async () => {
     {
       type: 'input',
       name: 'serviceName',
-      message: 'Service name:',
+      message: 'Enter service name (e.g. authService ts/js):',
       prefix: '🌐',
     },
     {

@@ -5,13 +5,30 @@ export const askFormQuestions = async () => {
     {
       type: 'input',
       name: 'formName',
-      message: 'Form name:',
+      message: 'Form name and optional path (e.g. LoginForm.jsx or LoginForm.tsx):',
       prefix: '📝',
       validate: (input) => {
         if (!input) return 'Form name is required';
-        if (!/^[A-Z][A-Za-z0-9]*$/.test(input)) {
+
+        // Split input into filename and path
+        const [filename, ...pathParts] = input.split(' ');
+
+        // Check if extension is valid if provided
+        const validExtensions = ['.tsx', '.jsx', '.ts', '.js'];
+        const hasValidExtension = validExtensions.some((ext) => filename.endsWith(ext));
+
+        if (!hasValidExtension) {
+          return 'Invalid file extension. Use .tsx, .jsx, .ts or .js';
+        }
+
+        // Remove file extension if present
+        const nameWithoutExt = filename.replace(/\.(tsx|jsx|ts|js)$/, '');
+
+        // Check if name starts with uppercase and contains only letters/numbers
+        if (!/^[A-Z][A-Za-z0-9]*$/.test(nameWithoutExt)) {
           return 'Form name must start with uppercase letter and contain only letters and numbers';
         }
+
         return true;
       },
     },
