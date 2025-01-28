@@ -1,19 +1,19 @@
 #!/usr/bin/env node
-import { askInitialAction } from './src/core/prompts/mainPrompts.js';
-import { createComponent } from './src/core/commands/createComponent.js';
-import { createHook } from './src/core/commands/createHook.js';
-import { createContext } from './src/core/commands/createContext.js';
-import { createApiService } from './src/core/commands/createApi.js';
-import { createForm } from './src/core/commands/createForm.js';
-import { createTestSuite } from './src/core/commands/createTest.js';
-import { removeItem } from './src/core/commands/removeItem.js';
-import { askComponentQuestions } from './src/core/prompts/componentPrompts.js';
-import { askHookQuestions } from './src/core/prompts/hookPrompts.js';
-import { askContextQuestions } from './src/core/prompts/contextPrompts.js';
-import { askApiServiceQuestions } from './src/core/prompts/apiPrompts.js';
-import { askFormQuestions } from './src/core/prompts/formPrompts.js';
-import { askTestQuestions } from './src/core/prompts/testPrompts.js';
-import { askRemovalQuestions } from './src/core/prompts/removePrompts.js';
+import { askInitialAction } from './core/prompts/mainPrompts.js';
+import { createComponent } from './core/commands/createComponent.js';
+import { createHook } from './core/commands/createHook.js';
+import { createContext } from './core/commands/createContext.js';
+import { createApiService } from './core/commands/createApi.js';
+import { createForm } from './core/commands/createForm.js';
+import { createTestSuite } from './core/commands/createTest.js';
+import { removeItem } from './core/commands/removeItem.js';
+import { askComponentQuestions } from './core/prompts/componentPrompts.js';
+import { askHookQuestions } from './core/prompts/hookPrompts.js';
+import { askContextQuestions } from './core/prompts/contextPrompts.js';
+import { askApiServiceQuestions } from './core/prompts/apiPrompts.js';
+import { askFormQuestions } from './core/prompts/formPrompts.js';
+import { askTestQuestions } from './core/prompts/testPrompts.js';
+import { askRemovalQuestions } from './core/prompts/removePrompts.js';
 
 const main = async () => {
   const action = await askInitialAction();

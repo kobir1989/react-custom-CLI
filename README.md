@@ -1,75 +1,156 @@
 # React Component CLI
 
-A Simple command-line interface tool for accelerating React development workflows.
+A powerful command-line interface tool designed to accelerate React development workflows by
+automating component creation and project structure setup.
 
-## Features
+## 🚀 Features
 
-- 📦 Create new React components with custom configuration
-- 🎣 Generate custom hooks with built-in hook integration
-- 🔄 Create Context providers with optional reducer setup
-- 🌐 Generate API services with axios/fetch configuration
-- 📝 Create forms with validation (Formik/React Hook Form)
-- 🧪 Generate test suites for components
-- 🗑️ Component/file removal utility
-- 🎨 Multiple styling options (SCSS, CSS, Styled Components)
-- 📝 TypeScript/JavaScript support
+- **Component Generation**
 
-## Installation
+  - Create functional/class components
+  - TypeScript/JavaScript support
+  - Styling options (CSS, SCSS, Styled Components)
+  - Automatic test file generation
+  - PropTypes/TypeScript interface generation
+
+- **Custom Hooks**
+
+  - Generate hook templates with best practices
+  - Built-in React hooks integration
+  - TypeScript support with proper typing
+  - Automatic documentation generation
+
+- **Context Management**
+
+  - Create Context providers with boilerplate
+  - Optional Redux-style reducer setup
+  - Type-safe context consumers
+  - Custom hook generation for context
+
+- **API Integration**
+
+  - Generate API service templates
+  - Axios/Fetch configuration
+  - Error handling utilities
+  - TypeScript interfaces for responses
+
+- **Form Generation**
+
+  - Formik/React Hook Form integration
+  - Custom validation schemas
+  - Common form patterns
+  - Reusable form components
+
+- **Testing Utilities**
+
+  - React Testing Library setup
+  - Jest configuration
+  - Common test scenarios
+  - Snapshot testing templates
+
+- **Project Utilities**
+  - Safe file/component removal
+  - Project structure generation
+  - Code style enforcement
+
+## 📦 Installation
 
 ```bash
-npm install -g my-cli
+npm install -g react-component-cli
 ```
 
-## Usage
+## 🛠️ Usage
 
-Run the CLI:
+### Quick Start
 
 ```bash
-my-cli
+# Start the CLI
+react-template-cli
+
+# Or use the shorthand
+rcc
 ```
 
-### Available Actions
+### Command Reference
 
-1. **Create Component**
+```bash
+# Create a new component
+rcc create component MyComponent
 
-   - Generate React components with custom configuration
-   - Choose styling solutions
-   - Add test files automatically
+# Generate a custom hook
+rcc create hook useCustomHook
 
-2. **Generate Custom Hook**
+# Create a context
+rcc create context AuthContext
 
-   - Create custom React hooks with built-in hook integration (useState, useEffect, useCallback,
-     useMemo)
-   - Enforces proper hook naming convention (must start with 'use' followed by PascalCase name)
-   - Supports both JavaScript (.js) and TypeScript (.ts) files
-   - Flexible directory structure:
-     - Default: `src/hooks/useHookName.js`
-     - Custom: `src/features/auth/hooks/useAuthState.ts`
+# Generate an API service
+rcc create service UserService
 
-3. **Create Context**
+# Create a form
+rcc create form LoginForm
 
-   - Generate Context with Provider component
-   - Optional reducer integration
-   - Include custom hooks for context consumption
+# Generate tests
+rcc create test MyComponent
 
-4. **Create API Service**
+# Remove a component
+rcc remove MyComponent
+```
 
-   - Generate API services with axios or fetch
-   - Type-safe API calls
-   - Error handling setup
+## 📁 Directory Structure
 
-5. **Create Form**
+The CLI generates files following this default structure:
 
-   - Generate forms with validation
-   - Integration with Formik or React Hook Form
-   - Custom validation rules
+```
+src/
+├── components/
+│   └── ComponentName/
+│       ├── ComponentName.tsx
+│       ├── ComponentName.test.tsx
+│       └── ComponentName.styles.ts
+├── hooks/
+│   └── useHookName.ts
+├── contexts/
+│   └── ContextName/
+│       ├── ContextNameContext.tsx
+│       └── ContextNameReducer.ts
+├── services/
+│   └── ServiceName.ts
+└── forms/
+    └── FormName/
+        ├── FormName.tsx
+        └── validation.ts
+```
 
-6. **Generate Test Suite**
+## ⚙️ Configuration
 
-   - Create test files for existing components
-   - Integration with React Testing Library
-   - Common test scenarios included
+Create a `react-component-cli.config.js` in your project root:
 
-7. **Remove Component/File**
-   - Safely remove components and related files
-   - Confirmation prompt for safety
+```javascript
+module.exports = {
+  typescript: true,
+  styling: 'styled-components',
+  testingLibrary: true,
+  path: 'src/components',
+  templates: './templates',
+};
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Inspired by best practices in React development
+- Built with developer experience in mind
+- Community-driven features and improvements
+
+## 📫 Support
+
+- Documentation: [Full Documentation](https://docs.react-component-cli.dev)
+- Issues: [GitHub Issues](https://github.com/username/react-component-cli/issues)
+- Discussions: [GitHub Discussions](https://github.com/username/react-component-cli/discussions)

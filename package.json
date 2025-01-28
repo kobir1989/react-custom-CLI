@@ -1,20 +1,34 @@
 {
   "name": "react-custom-cli",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "A CLI tool for creating React templates",
+  "main": "dist/cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild src/cli.js --bundle --platform=node --outfile=dist/cli.js --minify",
+    "dev": "esbuild src/cli.js --bundle --platform=node --outfile=dist/cli.js --watch"
   },
   "bin": {
-    "my-cli": "./cli.js"
+    "react-template-cli": "./dist/cli.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "cli",
+    "template",
+    "generator"
+  ],
+  "author": "Kobir Hossain",
   "license": "ISC",
-  "type": "module",
-  "description": "",
+  "type": "commonjs",
   "dependencies": {
     "fs-extra": "^11.3.0",
-    "inquirer": "^7.3.3"
+    "inquirer": "^8.2.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kobir1989/react-custom-CLI"
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.12"
   }
 }
