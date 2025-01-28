@@ -1,4 +1,4 @@
-# React Template CLI
+# React Quickstart CLI 
 
 A powerful command-line interface tool designed to accelerate React development workflows by
 automating component creation and project structure setup.
@@ -63,7 +63,7 @@ automating component creation and project structure setup.
 ## 📦 Installation
 
 ```bash
-npm install -g react-template-cli
+npm install -g react-quickstart-cli
 ```
 
 ## 🛠️ Usage

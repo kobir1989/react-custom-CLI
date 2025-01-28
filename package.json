@@ -1,6 +1,6 @@
 {
-  "name": "react-custom-cli-new",
-  "version": "1.0.1",
+  "name": "react-quickstart-cli",
+  "version": "1.0.0",
   "description": "A CLI tool for creating React templates",
   "main": "dist/cli.js",
   "scripts": {
@@ -9,8 +9,8 @@
     "dev": "esbuild src/cli.js --bundle --platform=node --outfile=dist/cli.js --watch"
   },
   "bin": {
-    "react-template-cli": "./dist/cli.js",
-    "rtc": "./dist/cli.js"
+    "react-quickstart-cli": "./dist/cli.js",
+    "rqc": "./dist/cli.js"
   },
   "keywords": [
     "react",
@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kobir1989/react-custom-CLI"
+    "url": "https://github.com/kobir1989/react-quickstart-cli"
   },
   "devDependencies": {
     "esbuild": "^0.19.12"
