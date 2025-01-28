@@ -1,32 +1,17 @@
 import { ensureDirectoryExists, writeFile, joinPaths, getProjectRoot } from '../utils/fileUtils.js';
 
-export const createContext = ({ contextName, includeReducer }) => {
+export const createContext = ({ contextName, contextPath, fileType, includeReducer }) => {
   // Clean up the input and handle extension
   const input = contextName.trim();
-  let baseName, extension;
-
-  // Check if input already has an extension
-  if (input.endsWith('.jsx') || input.endsWith('.tsx')) {
-    const lastDotIndex = input.lastIndexOf('.');
-    baseName = input.substring(0, lastDotIndex);
-    extension = input.substring(lastDotIndex);
-  } else if (input.includes(' ')) {
-    // Split by space and get the last part as extension
-    const parts = input.split(' ');
-    const ext = parts.pop();
-    extension = ext.startsWith('.') ? ext : `.${ext}`;
-    baseName = parts.join('');
-  } else {
-    baseName = input;
-    extension = '.tsx'; // Default extension
-  }
+  let baseName = input;
+  const extension = `.${fileType}`; // Use the provided fileType
 
   // Validate and normalize extension
   if (!['.jsx', '.tsx'].includes(extension.toLowerCase())) {
-    extension = '.tsx';
+    throw new Error('Invalid file extension. Must be either .jsx or .tsx');
   }
 
-  const contextDir = joinPaths(getProjectRoot(), 'src', 'contexts');
+  const contextDir = joinPaths(getProjectRoot(), 'src', contextPath); // Use the provided contextPath
   ensureDirectoryExists(contextDir);
 
   let contextContent = `import React, { createContext, useContext`;
@@ -100,8 +85,8 @@ export const createContext = ({ contextName, includeReducer }) => {
   contextContent += `  return context;\n};\n`;
 
   // Use cleaned up names for the file path
-  const contextPath = joinPaths(contextDir, `${baseName}${extension}`);
-  writeFile(contextPath, contextContent);
+  const fullPath = joinPaths(contextDir, `${baseName}${extension}`);
+  writeFile(fullPath, contextContent);
 
   console.log('\n✅ Context created successfully!');
   console.log('📂 Location:', contextDir);
