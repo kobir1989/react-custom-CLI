@@ -3,6 +3,13 @@
 A powerful command-line interface tool designed to accelerate React development workflows by
 automating component creation and project structure setup.
 
+<img width="1177" alt="Screenshot 2025-01-28 at 10 22 14 PM" src="https://github.com/user-attachments/assets/8253267e-e965-41c0-bacb-149f311128e9" />
+
+<img width="1177" alt="Screenshot 2025-01-28 at 10 24 26 PM" src="https://github.com/user-attachments/assets/83afb00f-d306-438d-9330-ec162ec31e68" />
+
+<img width="1177" alt="Screenshot 2025-01-28 at 10 25 12 PM" src="https://github.com/user-attachments/assets/eac04986-6d67-49c5-aa15-85e85d1a3558" />
+
+
 ## 🚀 Features
 
 - **Component Generation**
