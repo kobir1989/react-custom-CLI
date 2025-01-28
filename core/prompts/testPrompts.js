@@ -6,7 +6,7 @@ export const askTestQuestions = async () => {
     {
       type: 'input',
       name: 'componentPath',
-      message: 'Path to component (relative to src):',
+      message: 'Path to component (relative to src example: components/Button/Button.tsx):',
       prefix: '🧪',
       validate: (input) => {
         if (!input) return 'Path is required';

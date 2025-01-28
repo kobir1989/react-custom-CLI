@@ -7,12 +7,19 @@ export const askRemovalQuestions = async () => {
     {
       type: 'input',
       name: 'pathToRemove',
-      message: 'Enter the path to remove (relative to src):',
+      message: 'Enter the path to remove (example: components/**/*):',
       prefix: '🗑️ ',
       validate: (input) => {
         if (!input) return 'Path is required';
-        const fullPath = joinPaths(getProjectRoot(), 'src', input);
-        if (!fileExists(fullPath)) return '❌ Path does not exist';
+        // Check if path exists from root
+        const fullPath = joinPaths(getProjectRoot(), input);
+        if (!fileExists(fullPath)) {
+          // Try src folder as fallback
+          const srcPath = joinPaths(getProjectRoot(), 'src', input);
+          if (!fileExists(srcPath)) {
+            return '❌ Path does not exist in root or src directory';
+          }
+        }
         return true;
       },
     },
@@ -20,7 +27,7 @@ export const askRemovalQuestions = async () => {
       type: 'confirm',
       name: 'confirmRemoval',
       message: (answers) =>
-        `⚠️  Are you sure you want to remove "${answers.pathToRemove}"? This action cannot be undone.`,
+        `⚠️  Are you sure you want to permanently delete "${answers.pathToRemove}"?`,
       default: false,
       prefix: '❗',
     },

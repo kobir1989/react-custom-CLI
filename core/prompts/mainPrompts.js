@@ -28,7 +28,7 @@ export const askInitialAction = async () => {
           description: 'Generate API service with axios/fetch',
         },
         {
-          name: '📝 Create form',
+          name: '📝 Create form Component',
           value: 'form',
           description: 'Generate form with validation (Formik/React Hook Form)',
         },
@@ -38,7 +38,7 @@ export const askInitialAction = async () => {
           description: 'Create test files for existing components',
         },
         {
-          name: '🗑️ Remove component/file',
+          name: '🗑️  Remove file/folder',
           value: 'remove',
           description: 'Delete an existing component or file',
         },
