@@ -5,32 +5,35 @@ export const askFormQuestions = async () => {
     {
       type: 'input',
       name: 'formName',
-      message: 'Form name and optional path (e.g. LoginForm.jsx or LoginForm.tsx):',
-      prefix: '📝',
+      message: 'Form name (without extension):',
+      prefix: '📎',
       validate: (input) => {
         if (!input) return 'Form name is required';
-
-        // Split input into filename and path
-        const [filename, ...pathParts] = input.split(' ');
-
-        // Check if extension is valid if provided
-        const validExtensions = ['.tsx', '.jsx', '.ts', '.js'];
-        const hasValidExtension = validExtensions.some((ext) => filename.endsWith(ext));
-
-        if (!hasValidExtension) {
-          return 'Invalid file extension. Use .tsx, .jsx, .ts or .js';
-        }
-
-        // Remove file extension if present
-        const nameWithoutExt = filename.replace(/\.(tsx|jsx|ts|js)$/, '');
-
-        // Check if name starts with uppercase and contains only letters/numbers
-        if (!/^[A-Z][A-Za-z0-9]*$/.test(nameWithoutExt)) {
+        if (!/^[A-Z][A-Za-z0-9]*$/.test(input)) {
           return 'Form name must start with uppercase letter and contain only letters and numbers';
         }
-
         return true;
       },
+    },
+    {
+      type: 'input',
+      name: 'formPath',
+      message: 'Form path (relative to src):',
+      prefix: '📁',
+      default: 'components',
+    },
+    {
+      type: 'list',
+      name: 'fileType',
+      message: 'File type:',
+      prefix: '📄',
+      choices: [
+        { name: 'TypeScript React (tsx)', value: 'tsx' },
+        { name: 'JavaScript React (jsx)', value: 'jsx' },
+        { name: 'TypeScript (ts)', value: 'ts' },
+        { name: 'JavaScript (js)', value: 'js' },
+      ],
+      default: 'tsx',
     },
     {
       type: 'list',
