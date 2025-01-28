@@ -9,7 +9,8 @@
     "dev": "esbuild src/cli.js --bundle --platform=node --outfile=dist/cli.js --watch"
   },
   "bin": {
-    "react-template-cli": "./dist/cli.js"
+    "react-template-cli": "./dist/cli.js",
+    "rtc": "./dist/cli.js"
   },
   "keywords": [
     "react",
