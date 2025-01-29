@@ -44,7 +44,7 @@ export const createForm = ({
   let formContent = imports + '\n';
 
   // Add types for TypeScript and JSX files
-  if ((fileName.endsWith('.ts') || fileName.endsWith('.tsx')) && includeValidation) {
+  if (fileName.endsWith('.ts') || fileName.endsWith('.tsx')) {
     formContent += `interface FormData {\n`;
     fieldTypes.forEach((type) => {
       switch (type) {

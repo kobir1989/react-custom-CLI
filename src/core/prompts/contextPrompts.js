@@ -31,6 +31,7 @@ export const askContextQuestions = async () => {
       choices: [
         { name: 'TypeScript (tsx)', value: 'tsx' },
         { name: 'JavaScript (jsx)', value: 'jsx' },
+        { name: 'JavaScript (js)', value: 'js' },
       ],
       default: 'tsx',
     },

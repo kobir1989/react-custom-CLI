@@ -31,7 +31,7 @@ export const askComponentQuestions = async () => {
       choices: [
         { name: 'TypeScript React (tsx)', value: 'tsx' },
         { name: 'JavaScript React (jsx)', value: 'jsx' },
-        { name: 'TypeScript (ts)', value: 'ts' },
+        // { name: 'TypeScript (ts)', value: 'ts' },
         { name: 'JavaScript (js)', value: 'js' },
       ],
       default: 'tsx',
