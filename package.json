@@ -1,11 +1,11 @@
 {
   "name": "react-quickstart-cli-2",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A CLI tool for creating React templates",
   "main": "dist/cli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild src/cli.js --bundle --platform=node --outfile=dist/cli.js --minify",
+    "build": "node esbuild.config.js",
     "dev": "esbuild src/cli.js --bundle --platform=node --outfile=dist/cli.js --watch"
   },
   "bin": {

@@ -5,7 +5,7 @@ export const askInitialAction = async () => {
     {
       type: 'list',
       name: 'action',
-      message: 'Welcome to the React Custom CLI! What would you like to do?',
+      message: 'Welcome to the React Custom Quickstart CLI! What would you like to do?',
       choices: [
         {
           name: '📦 Create new component',
