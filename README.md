@@ -1,4 +1,6 @@
 # React Quickstart CLI 
+![npm version](https://img.shields.io/badge/npm-v1.0.3-blue)
+![Downloads](https://img.shields.io/npm/dt/react-quickstart-cli-2)
 
 A powerful command-line interface tool designed to accelerate React development workflows by
 automating component creation and project structure setup.
